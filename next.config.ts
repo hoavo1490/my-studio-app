@@ -1,7 +1,12 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  async rewrites() {
+    return [
+      { source: "/@:username", destination: "/@/:username" },
+      { source: "/@:username/post/:postId", destination: "/@/:username/post/:postId" }
+    ];
+  }
 };
 
 export default nextConfig;
