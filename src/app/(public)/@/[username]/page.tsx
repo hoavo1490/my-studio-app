@@ -26,7 +26,7 @@ export default async function CreatorPage({ params }: PageProps) {
 
   return (
     <SiteShell theme={serialUser.theme}>
-      <div className="space-y-10">
+      <div className="space-y-24">
         <CreatorHero user={serialUser} pinnedPost={pinnedPost} />
         <CreatorFeed posts={serializedPosts} />
       </div>

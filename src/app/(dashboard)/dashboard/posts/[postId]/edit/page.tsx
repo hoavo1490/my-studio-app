@@ -17,10 +17,13 @@ export default async function EditPostPage({ params }: PageProps) {
   }
   const serializedPost = serializePost(post);
   return (
-    <div className="space-y-6">
-      <div>
-        <p className="text-sm text-[var(--text-secondary)]">Editing</p>
+    <div className="space-y-8">
+      <div className="space-y-2">
+        <p className="text-xs uppercase tracking-[0.35em] text-[var(--text-secondary)]">Editing</p>
         <h2 className="text-3xl font-semibold">{serializedPost.title ?? "Untitled"}</h2>
+        <p className="text-sm text-[var(--text-secondary)]">
+          Last saved on {new Date(serializedPost.updatedAt).toLocaleDateString()}
+        </p>
       </div>
       <PostEditor post={serializedPost} />
     </div>

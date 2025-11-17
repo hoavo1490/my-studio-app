@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { z } from "zod";
 import { prisma } from "@/lib/db";
 import { getCurrentUser } from "@/lib/auth";
 import { serializePost } from "@/lib/serializers";
@@ -22,12 +23,14 @@ export async function PATCH(
   const user = await getCurrentUser();
   if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   const json = await request.json();
-  const payload = postSchema.extend({ isPinned: postSchema.shape.isPinned }).partial().parse(json);
+  const updateSchema = postSchema.extend({ isPinned: postSchema.shape.isPinned }).partial();
+  type PostUpdateInput = z.infer<typeof updateSchema>;
+  const payload: PostUpdateInput = updateSchema.parse(json);
   const existing = await prisma.post.findFirst({ where: { id: params.postId, userId: user.id } });
   if (!existing) {
     return NextResponse.json({ error: "Not found" }, { status: 404 });
   }
-  const finalType = (payload.type ?? existing.type) as any;
+  const finalType = payload.type ?? existing.type;
   const finalMedia = payload.mediaUrls ?? ((existing.mediaUrls as string[] | null) ?? null);
   const finalEmbed = payload.embedUrl ?? existing.embedUrl;
   if (finalType === "IMAGE" && !finalMedia?.length) {

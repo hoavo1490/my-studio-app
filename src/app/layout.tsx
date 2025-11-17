@@ -6,10 +6,16 @@ export const metadata: Metadata = {
   description: "Creator-owned studio pages for indie artists.",
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html lang="en">
-      <body className="bg-[var(--bg)] text-[var(--text-primary)]">{children}</body>
+      <body className="min-h-screen bg-[var(--bg)] text-[var(--text-primary)] antialiased">
+        {children}
+      </body>
     </html>
   );
 }

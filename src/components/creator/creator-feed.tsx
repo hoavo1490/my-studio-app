@@ -8,14 +8,14 @@ interface Props {
 export function CreatorFeed({ posts }: Props) {
   if (!posts.length) {
     return (
-      <div className="rounded-3xl border border-dashed border-[var(--card-border)] p-10 text-center text-sm text-[var(--text-secondary)]">
-        Nothing yet. When this artist publishes, their work will appear here.
+      <div className="rounded-3xl border border-dashed border-[var(--card-border)]/80 px-10 py-16 text-center text-sm text-[var(--text-secondary)]">
+        Nothing yet. When this artist publishes, their work will appear right here.
       </div>
     );
   }
 
   return (
-    <div className="grid gap-6">
+    <div className="space-y-14">
       {posts.map((post) => (
         <PostCard key={post.id} post={post} />
       ))}

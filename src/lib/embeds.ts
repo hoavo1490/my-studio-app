@@ -8,7 +8,6 @@ export interface ParsedEmbed {
 
 const YT_REGEX = /(?:youtube\.com\/(?:watch\?v=|shorts\/)|youtu\.be\/)([\w-]{11})/i;
 const VIMEO_REGEX = /vimeo\.com\/(\d+)/i;
-const SPOTIFY_REGEX = /open\.spotify\.com\/(.+)$/i;
 
 export function parseEmbedUrl(url: string): ParsedEmbed {
   try {

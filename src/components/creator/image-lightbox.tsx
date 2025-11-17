@@ -18,7 +18,7 @@ export function ImageLightbox({ images, title }: Props) {
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <div className="grid gap-3 md:grid-cols-2">
+      <div className="grid gap-4 md:grid-cols-2">
         {images.map((url, idx) => (
           <button
             type="button"
@@ -27,7 +27,7 @@ export function ImageLightbox({ images, title }: Props) {
               setIndex(idx);
               setOpen(true);
             }}
-            className="relative aspect-[4/3] cursor-zoom-in overflow-hidden rounded-2xl"
+            className="relative aspect-[4/3] cursor-zoom-in overflow-hidden rounded-[28px] border border-[var(--card-border)]/70"
           >
             <Image src={url} alt={title ?? "Artwork"} fill className="object-cover" sizes="(max-width: 768px) 100vw, 50vw" />
           </button>

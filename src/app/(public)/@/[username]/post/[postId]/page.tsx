@@ -24,10 +24,10 @@ export default async function SinglePostPage({ params }: PageProps) {
 
   return (
     <SiteShell theme={serializedPost.user?.theme}>
-      <div className="space-y-8">
+      <div className="space-y-12">
         <Link
           href={`/@/${serializedPost.user?.username}`}
-          className="inline-flex items-center text-sm text-[var(--text-secondary)]"
+          className="inline-flex items-center text-xs uppercase tracking-[0.4em] text-[var(--text-secondary)]"
         >
           <ArrowLeft className="mr-2 h-4 w-4" /> Back to @{serializedPost.user?.username}
         </Link>

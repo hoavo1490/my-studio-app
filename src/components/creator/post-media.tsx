@@ -12,11 +12,11 @@ export function PostMedia({ post, priority }: Props) {
   if (post.type === "IMAGE" && post.mediaUrls?.length) {
     const [first, ...rest] = post.mediaUrls;
     return (
-      <div className={cn("relative w-full", rest.length ? "grid grid-cols-2 gap-2 p-4" : "")}>
+      <div className={cn("relative w-full", rest.length ? "grid grid-cols-2 gap-4 bg-[var(--bg)]/60 p-4" : "")}>
         {rest.length ? (
-          <div className="col-span-2 grid grid-cols-2 gap-2">
+          <div className="col-span-2 grid grid-cols-2 gap-4">
             {[first, ...rest.slice(0, 3)].map((url, index) => (
-              <div key={url} className="relative aspect-[4/3] overflow-hidden rounded-xl">
+              <div key={url} className="relative aspect-[4/3] overflow-hidden rounded-2xl">
                 <Image
                   src={url}
                   alt={post.title ?? "Artwork"}
@@ -34,12 +34,12 @@ export function PostMedia({ post, priority }: Props) {
             ))}
           </div>
         ) : (
-          <div className="relative aspect-[16/9] w-full">
+          <div className="relative aspect-[5/4] w-full">
             <Image
               src={first}
               alt={post.title ?? "Artwork"}
               fill
-              className="rounded-t-xl object-cover"
+              className="object-cover"
               priority={priority}
               sizes="100vw"
             />
@@ -57,6 +57,7 @@ export function PostMedia({ post, priority }: Props) {
           <iframe
             src={embed.embedUrl}
             className="h-full w-full"
+            title={post.title ?? "Embedded video"}
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
           />
@@ -65,7 +66,7 @@ export function PostMedia({ post, priority }: Props) {
     }
     if (post.mediaUrls?.[0]) {
       return (
-        <video controls className="aspect-video w-full rounded-t-xl bg-black">
+        <video controls className="aspect-video w-full bg-black">
           <source src={post.mediaUrls[0]} />
         </video>
       );
@@ -76,14 +77,19 @@ export function PostMedia({ post, priority }: Props) {
     if (post.embedUrl) {
       const embed = parseEmbedUrl(post.embedUrl);
       return (
-        <div className="w-full overflow-hidden rounded-t-xl bg-black/5">
-          <iframe src={embed.embedUrl} className="h-32 w-full" allow="autoplay" />
+        <div className="w-full overflow-hidden bg-black/5">
+          <iframe
+            src={embed.embedUrl}
+            className="h-32 w-full"
+            title={post.title ?? "Embedded audio"}
+            allow="autoplay"
+          />
         </div>
       );
     }
     if (post.mediaUrls?.[0]) {
       return (
-        <div className="w-full rounded-t-xl bg-[var(--bg-secondary)] p-4">
+        <div className="w-full bg-[var(--bg-secondary)] p-4">
           <audio controls className="w-full">
             <source src={post.mediaUrls[0]} />
           </audio>

@@ -1,14 +1,14 @@
 export function SiteFooter() {
   return (
-    <footer className="border-t border-[var(--card-border)] bg-[var(--bg-secondary)]">
-      <div className="mx-auto flex max-w-6xl flex-col gap-2 px-6 py-8 text-xs text-[var(--text-secondary)] md:flex-row md:items-center md:justify-between">
-        <span>© {new Date().getFullYear()} duskroom. Built for late-night creators.</span>
-        <div className="flex gap-3">
+    <footer className="border-t border-[var(--divider)]/60">
+      <div className="mx-auto flex max-w-5xl flex-col items-center gap-2 px-6 py-10 text-[11px] uppercase tracking-[0.3em] text-[var(--text-secondary)] md:px-10 lg:px-24">
+        <span>© {new Date().getFullYear()} duskroom — built for quiet, creator-owned studios.</span>
+        <div className="flex gap-4">
           <a href="mailto:hello@duskroom.app" className="hover:text-[var(--text-primary)]">
-            Contact
+            contact
           </a>
           <a href="https://github.com" className="hover:text-[var(--text-primary)]">
-            GitHub
+            github
           </a>
         </div>
       </div>

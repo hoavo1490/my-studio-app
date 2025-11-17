@@ -1,18 +1,19 @@
 import { getCurrentUser } from "@/lib/auth";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ProfileForm } from "./profile-form";
 
 export default async function ProfilePage() {
   const user = await getCurrentUser();
   if (!user) return null;
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Profile</CardTitle>
-      </CardHeader>
-      <CardContent>
+    <div className="space-y-8">
+      <div className="space-y-2">
+        <p className="text-xs uppercase tracking-[0.35em] text-[var(--text-secondary)]">Profile</p>
+        <h1 className="text-3xl font-semibold">Studio identity</h1>
+        <p className="text-sm text-[var(--text-secondary)]">Update your name, bio, and theme.</p>
+      </div>
+      <div className="rounded-3xl border border-[var(--card-border)]/80 px-6 py-6">
         <ProfileForm user={user} />
-      </CardContent>
-    </Card>
+      </div>
+    </div>
   );
 }

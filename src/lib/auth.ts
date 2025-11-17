@@ -22,7 +22,7 @@ export async function createSession(userId: string) {
     .setExpirationTime("7d")
     .sign(getSecret());
 
-  cookies().set(SESSION_COOKIE, token, {
+  (await cookies()).set(SESSION_COOKIE, token, {
     httpOnly: true,
     sameSite: "lax",
     secure: process.env.NODE_ENV === "production",
@@ -31,12 +31,12 @@ export async function createSession(userId: string) {
   });
 }
 
-export function destroySession() {
-  cookies().delete(SESSION_COOKIE);
+export async function destroySession() {
+  (await cookies()).delete(SESSION_COOKIE);
 }
 
 export async function getSession(req?: NextRequest) {
-  const store = req ? req.cookies : cookies();
+  const store = req ? req.cookies : await cookies();
   const token = store.get(SESSION_COOKIE)?.value;
   if (!token) return null;
 

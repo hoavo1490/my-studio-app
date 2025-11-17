@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { getCurrentUser } from "@/lib/auth";
+import { destroySession, getCurrentUser } from "@/lib/auth";
 import { prisma } from "@/lib/db";
 import { serializeUser } from "@/lib/serializers";
 
@@ -27,4 +27,15 @@ export async function PATCH(request: Request) {
     },
   });
   return NextResponse.json({ user: serializeUser(updated) });
+}
+
+export async function DELETE() {
+  const sessionUser = await getCurrentUser();
+  if (!sessionUser) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+  await prisma.post.deleteMany({ where: { userId: sessionUser.id } });
+  await prisma.user.delete({ where: { id: sessionUser.id } });
+  await destroySession();
+  return NextResponse.json({ ok: true });
 }

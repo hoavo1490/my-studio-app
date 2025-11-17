@@ -2,9 +2,9 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
 import { getCurrentUser } from "@/lib/auth";
 import { serializePost } from "@/lib/serializers";
-import { postSchema } from "@/lib/validators/post-schema";
+import { postSchema, type PostInput } from "@/lib/validators/post-schema";
 
-function validateType(payload: any) {
+function validateType(payload: PostInput) {
   if (payload.type === "IMAGE" && !payload.mediaUrls?.length) {
     return "Image posts require media urls";
   }

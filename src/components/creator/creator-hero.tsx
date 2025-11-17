@@ -9,23 +9,21 @@ interface CreatorHeroProps {
 
 export function CreatorHero({ user, pinnedPost }: CreatorHeroProps) {
   return (
-    <section className="flex flex-col gap-6 rounded-3xl border border-[var(--card-border)] bg-[var(--card-bg)]/60 p-6 md:flex-row md:items-center md:justify-between">
-      <div className="flex items-center gap-4">
-        <Avatar className="h-20 w-20">
-          {user.avatarUrl ? (
-            <AvatarImage src={user.avatarUrl} alt={user.name} />
-          ) : (
-            <AvatarFallback>{user.name.slice(0, 2).toUpperCase()}</AvatarFallback>
-          )}
+    <section className="space-y-10">
+      <div className="flex flex-col items-center gap-6 text-center">
+        <Avatar className="h-28 w-28">
+          {user.avatarUrl ? <AvatarImage src={user.avatarUrl} alt={user.name} /> : <AvatarFallback>{user.name.slice(0, 2).toUpperCase()}</AvatarFallback>}
         </Avatar>
-        <div>
-          <p className="text-sm uppercase tracking-[0.3em] text-[var(--text-secondary)]">Artist</p>
-          <h1 className="text-3xl font-semibold text-[var(--text-primary)]">{user.name}</h1>
-          <p className="max-w-2xl text-[var(--text-secondary)]">{user.bio ?? "This creator hasn’t written a bio yet."}</p>
+        <div className="space-y-3">
+          <p className="text-xs uppercase tracking-[0.4em] text-[var(--text-secondary)]">@{user.username}</p>
+          <h1 className="text-4xl font-semibold">{user.name}</h1>
+          <p className="mx-auto max-w-2xl text-lg text-[var(--text-secondary)]">
+            {user.bio ?? "This creator hasn’t written a bio yet."}
+          </p>
         </div>
       </div>
       {pinnedPost ? (
-        <div className="w-full md:max-w-sm">
+        <div>
           <PinnedPost post={pinnedPost} />
         </div>
       ) : null}

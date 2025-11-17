@@ -12,52 +12,44 @@ export default async function PostsListPage() {
   const serializedPosts = posts.map((post) => serializePost(post));
 
   return (
-    <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <h2 className="text-2xl font-semibold">Posts</h2>
+    <div className="space-y-10">
+      <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
+        <div className="space-y-2">
+          <p className="text-xs uppercase tracking-[0.35em] text-[var(--text-secondary)]">Posts</p>
+          <h2 className="text-3xl font-semibold">Your studio feed</h2>
+        </div>
         <Button asChild>
-          <Link href="/dashboard/posts/new">New Post</Link>
+          <Link href="/dashboard/posts/new">New entry</Link>
         </Button>
       </div>
-      <div className="overflow-hidden rounded-2xl border border-[var(--card-border)]">
-        <table className="w-full text-sm">
-          <thead className="bg-[var(--card-border)]/40 text-left uppercase tracking-[0.3em] text-[var(--text-secondary)]">
-            <tr>
-              <th className="px-4 py-3">Title</th>
-              <th className="px-4 py-3">Type</th>
-              <th className="px-4 py-3">Pinned</th>
-              <th className="px-4 py-3">Created</th>
-              <th className="px-4 py-3">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {serializedPosts.length === 0 ? (
-              <tr>
-                <td className="px-4 py-6 text-center text-[var(--text-secondary)]" colSpan={5}>
-                  No posts yet.
-                </td>
-              </tr>
-            ) : (
-              serializedPosts.map((post) => (
-                <tr key={post.id} className="border-t border-[var(--card-border)]">
-                  <td className="px-4 py-3 font-medium">{post.title ?? "Untitled"}</td>
-                  <td className="px-4 py-3">{post.type}</td>
-                  <td className="px-4 py-3">{post.isPinned ? "Yes" : "No"}</td>
-                  <td className="px-4 py-3">{new Date(post.createdAt).toLocaleDateString()}</td>
-                  <td className="px-4 py-3">
-                    <div className="flex gap-3">
-                      <Link href={`/dashboard/posts/${post.id}/edit`} className="text-[var(--accent)]">
-                        Edit
-                      </Link>
-                      <DeletePostButton postId={post.id} />
-                    </div>
-                  </td>
-                </tr>
-              ))
-            )}
-          </tbody>
-        </table>
-      </div>
+      {serializedPosts.length === 0 ? (
+        <div className="rounded-3xl border border-dashed border-[var(--card-border)]/80 px-8 py-12 text-sm text-[var(--text-secondary)]">
+          No posts yet. Upload media or begin a text entry to see it here.
+        </div>
+      ) : (
+        <div className="space-y-4">
+          {serializedPosts.map((post) => (
+            <article key={post.id} className="rounded-3xl border border-[var(--card-border)]/80 px-6 py-5">
+              <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+                <div>
+                  <p className="text-[11px] uppercase tracking-[0.4em] text-[var(--text-secondary)]">
+                    {post.type}
+                    {post.isPinned ? " · PINNED" : ""}
+                  </p>
+                  <h3 className="text-2xl font-semibold">{post.title ?? "Untitled"}</h3>
+                  <p className="text-sm text-[var(--text-secondary)]">{new Date(post.createdAt).toLocaleDateString()}</p>
+                </div>
+                <div className="flex gap-4 text-sm text-[var(--text-secondary)]">
+                  <Link href={`/dashboard/posts/${post.id}/edit`} className="hover:text-[var(--text-primary)]">
+                    Edit
+                  </Link>
+                  <DeletePostButton postId={post.id} />
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
