@@ -38,7 +38,7 @@ export default function HomePage() {
               <Link href="/register">Claim your studio</Link>
             </Button>
             <Button asChild variant="ghost">
-              <Link href="/@/demo">See a sample creator</Link>
+              <Link href="/demo">See a sample creator</Link>
             </Button>
           </div>
         </section>
